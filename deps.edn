@@ -1,0 +1,8 @@
+{:paths ["src"]
+ :aliases
+ {;; Run code linter
+  :clj-kondo {:replace-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+              :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "test" "clis/mldoc"]}
+  ;; Run style linter
+  :cljfmt {:replace-deps {cljfmt/cljfmt {:mvn/version "RELEASE"}}
+           :main-opts ["-m" "cljfmt.main"]}}}
