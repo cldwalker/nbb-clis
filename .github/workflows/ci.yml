@@ -17,6 +17,9 @@ jobs:
       - name: Install mldoc deps
         run: cd clis/mldoc && npm install
 
+      - name: Install nbb
+        run: npm install nbb -g
+
       - name: Run tests
         run: nbb --classpath src:test:clis/mldoc test/cldwalker/nbb_clis/test_runner.cljs
   clj-test:

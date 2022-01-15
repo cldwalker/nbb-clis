@@ -17,10 +17,10 @@
 
 ;; Commented out b/c of a bug with blocks losing one property
 #_(deftest roundtrip-advanced-test
-  (util/sh ["bin/logseq-roundtrip"
-            (resource "advanced.md")
-            (resource "advanced2.md")] {})
-  (is (= (str (fs/readFileSync (resource "advanced.md")))
-         (str (fs/readFileSync (resource "advanced2.md")))))
+    (util/sh ["bin/logseq-roundtrip"
+              (resource "advanced.md")
+              (resource "advanced2.md")] {})
+    (is (= (str (fs/readFileSync (resource "advanced.md")))
+           (str (fs/readFileSync (resource "advanced2.md")))))
   ;; Clean up
-  (fs/unlinkSync (resource "advanced2.md")))
+    (fs/unlinkSync (resource "advanced2.md")))
