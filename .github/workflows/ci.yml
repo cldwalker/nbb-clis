@@ -21,7 +21,7 @@ jobs:
         run: npm install nbb -g
 
       - name: Run tests
-        run: nbb --classpath src:test:clis/mldoc test/cldwalker/nbb_clis/test_runner.cljs
+        run: nbb --classpath src:test:clis/mldoc test/test_runner.cljs
   clj-test:
     runs-on: ubuntu-20.04
     steps:

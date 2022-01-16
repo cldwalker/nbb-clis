@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 ROOT_DIR="$(dirname "$0")/.."
+# Tried combining two using nbb.core/load-file and get `Message:  Cannot find module`
 nbb --classpath "$ROOT_DIR/src" -e "(require '[cldwalker.nbb-clis.util]) (cldwalker.nbb-clis.util/ensure-node-modules \"$ROOT_DIR/clis/mldoc\")"
 nbb --classpath "$ROOT_DIR/src" "$ROOT_DIR/clis/mldoc/logseq_ast.cljs" $@

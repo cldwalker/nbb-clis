@@ -1,10 +1,10 @@
-(ns cldwalker.nbb-clis.logseq-roundtrip-test
+(ns logseq-roundtrip-test
   (:require [clojure.test :as t :refer [deftest is]]
             ["fs" :as fs]
             [cldwalker.nbb-clis.util :as util]))
 
 (defn- resource [path]
-  (str "test/cldwalker/nbb_clis/resources/" path))
+  (str "test/resources/" path))
 
 (deftest roundtrip-basic-test
   (util/sh ["bin/logseq-roundtrip"
