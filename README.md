@@ -83,4 +83,4 @@ Code is organized under the following directories:
 * See https://github.com/cldwalker/bb-clis for the bb equivalent to this
 
 ## License
-See LICENSE.md
+This repository is licensed under LICENSE.md except for [mldoc.cljs](https://github.com/cldwalker/nbb-clis/blob/main/src/cldwalker/nbb_clis/mldoc.cljs).

@@ -1,3 +1,5 @@
+;; Copyright (C) 2022 Logseq under GPL 3.0
+;; This file is a modified version of https://github.com/logseq/logseq/blob/master/src/main/frontend/format/mldoc.cljs
 (ns cldwalker.nbb-clis.mldoc
   "Mldoc helpers mostly from
   https://github.com/logseq/logseq/blob/master/src/main/frontend/format/mldoc.cljs.
