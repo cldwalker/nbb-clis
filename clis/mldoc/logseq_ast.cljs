@@ -2,6 +2,7 @@
   (:require ["fs" :as fs]
             ["path" :as path]
             [nbb.core]
+            [clojure.pprint :as pprint]
             [cldwalker.nbb-clis.mldoc :as mldoc]))
 
 (defn -main*
@@ -22,4 +23,4 @@
     (-main* args)))
 
 (when (= nbb.core/*file* (:file (meta #'-main)))
-  (prn (-main *command-line-args*)))
+  (pprint/pprint (-main *command-line-args*)))
