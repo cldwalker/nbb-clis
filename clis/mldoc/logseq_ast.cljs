@@ -10,7 +10,7 @@
   (let [[input] args
         config (mldoc/default-config)]
     (if (.isDirectory (fs/lstatSync input))
-      (map #(hash-map :file %
+      (map #(hash-map :file (path/join input %)
                       :ast (mldoc/file-ast (path/join input %) config))
            (js->clj (fs/readdirSync input)))
       (mldoc/file-ast input config))))
