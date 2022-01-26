@@ -61,7 +61,7 @@ $ logseq-block-move pages new-pages unused-tag
 pages/example.md -> new-pages/example.md - 6 of 8 nodes moved
 ```
 
-**Note**: This is dependent on building mldoc's master branch locally until there is an npm release after 1.2.8. There are minor whitespace changes and [this bug](https://github.com/logseq/mldoc/issues/116) that occur during the move. It's recommended to use `logseq-roundtrip` on the intended move target beforehand to see what the mldoc exporter will do.
+**Note**: There are minor whitespace changes and [this bug](https://github.com/logseq/mldoc/issues/116) that occur during the move. It's recommended to use `logseq-roundtrip` on the intended move target beforehand to see what the mldoc exporter will do.
 
 ### logseq-roundtrip
 
