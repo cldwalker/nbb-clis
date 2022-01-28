@@ -5,7 +5,6 @@
   https://github.com/logseq/logseq/blob/master/src/main/frontend/format/mldoc.cljs.
   Hopefully this file can be pulled from logseq one day"
   (:require ["mldoc$default" :as mldoc :refer [Mldoc]]
-            ["os" :as os]
             ["fs" :as fs]
             [cljs-bean.core :as bean]
             [applied-science.js-interop :as j]))
@@ -40,15 +39,14 @@
 (def parse-json
   (comp json->clj parse-json*))
 
+;; Sometimes newline at end of file is chopped on export. Maybe newline
+;; detection could help
 (defn ast-export-markdown
   [ast config references]
-  (str
-   (ast-export-markdown*
-    (-> ast clj->js js/JSON.stringify)
-    config
-    references)
-   ;; Dunno why export swallows newline but easy to compensate
-   os/EOL))
+  (ast-export-markdown*
+   (-> ast clj->js js/JSON.stringify)
+   config
+   references))
 
 (defn file-ast [input-file config]
   (let [body (fs/readFileSync input-file)]

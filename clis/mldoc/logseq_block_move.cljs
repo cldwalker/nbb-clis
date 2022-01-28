@@ -52,12 +52,18 @@
 (defn move-input-to-output [input output config f]
   (let [md-ast (mldoc/file-ast input config)
         {:keys [keep remove]} (remove-by-fn f md-ast)]
-    (println (util/format "%s -> %s - %s of %s nodes moved"
-                          input output (count remove) (+ (count keep) (count remove))))
-    (fs/writeFileSync input
-                      (mldoc/ast-export-markdown keep config mldoc/default-references))
-    (fs/writeFileSync output
-                      (mldoc/ast-export-markdown remove config mldoc/default-references))))
+    (if (empty? remove)
+      (println (util/format "%s -> %s - Did not occur as there are 0 nodes to move"
+                            input output))
+      (println (util/format "%s -> %s - %s of %s nodes moved"
+                            input output (count remove) (+ (count keep) (count remove)))))
+    (if (empty? keep)
+      (fs/rmSync input)
+      (fs/writeFileSync input
+                        (mldoc/ast-export-markdown keep config mldoc/default-references)))
+    (when (seq remove)
+      (fs/writeFileSync output
+                       (mldoc/ast-export-markdown remove config mldoc/default-references)))))
 
 (defn -main*
   [args]
