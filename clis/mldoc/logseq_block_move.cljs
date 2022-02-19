@@ -63,7 +63,7 @@
                         (mldoc/ast-export-markdown keep config mldoc/default-references)))
     (when (seq remove)
       (fs/writeFileSync output
-                       (mldoc/ast-export-markdown remove config mldoc/default-references)))))
+                        (mldoc/ast-export-markdown remove config mldoc/default-references)))))
 
 (defn -main*
   [args]
