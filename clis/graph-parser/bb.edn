@@ -1,0 +1,11 @@
+{:deps
+ {logseq/logseq
+  {:git/url "https://github.com/logseq/logseq"
+   :git/sha "af1a5d417365295c097c44225a7fe0c0eed1cb7c"}}
+
+ :tasks
+ {nbb
+  {:requires ([babashka.classpath :as classpath])
+   :doc "Run nbb-logseq with bb.edn classpath"
+   :task (apply shell "nbb-logseq"
+           "-cp" (classpath/get-classpath) *command-line-args*)}}}
