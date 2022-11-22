@@ -2,25 +2,21 @@
   "Equivalent to clis/mldoc/logseq-ast but depend on upstream
 logseq ns. To try this:
 
-bb nbb logseq_ast.cljs /path/to/markdown-file"
+yarn nbb-logseq logseq_ast.cljs /path/to/markdown-file"
   (:require ["fs" :as fs]
             ["path" :as path]
             [nbb.core]
             [clojure.pprint :as pprint]
-            [logseq.graph-parser.util :as gp-util]
-            [logseq.graph-parser.mldoc :as mldoc]))
+            [logseq.graph-parser.mldoc :as gp-mldoc]))
 
 (defn file-ast [input-file config]
   (let [body (fs/readFileSync input-file)]
-    ;; Could also just call mldoc/->edn
-    (-> (str body)
-        (mldoc/parse-json config)
-        gp-util/json->clj)))
+    (gp-mldoc/->edn (str body) config)))
 
 (defn -main*
   [args]
   (let [[input] args
-        config (mldoc/default-config :markdown)]
+        config (gp-mldoc/default-config :markdown)]
     (if (.isDirectory (fs/lstatSync input))
       (map #(hash-map :file (path/join input %)
                       :ast (file-ast (path/join input %) config))

@@ -3,26 +3,22 @@
   (:require ["fs" :as fs]
             ["path" :as path]
             [nbb.core]
-            [logseq.graph-parser.mldoc :as mldoc]
-            [logseq.graph-parser.util :as gp-util]))
+            [logseq.graph-parser.mldoc :as gp-mldoc]))
 
 
 (defn file-ast [input-file config]
   (let [body (fs/readFileSync input-file)]
-    ;; Could also just call mldoc/->edn
-    (-> (str body)
-        (mldoc/parse-json config)
-        gp-util/json->clj)))
+    (gp-mldoc/->edn (str body) config)))
 
 (defn- roundtrip-file [input-file output-file config]
   (let [md-ast (file-ast input-file config)]
     (fs/writeFileSync output-file
-                      (mldoc/ast-export-markdown (-> md-ast clj->js js/JSON.stringify) config mldoc/default-references))))
+                      (gp-mldoc/ast-export-markdown (-> md-ast clj->js js/JSON.stringify) config gp-mldoc/default-references))))
 
 (defn -main*
   [args]
   (let [[input output] args
-        config (mldoc/default-config :markdown)]
+        config (gp-mldoc/default-config :markdown)]
     (if (.isDirectory (fs/lstatSync input))
       (do
         (when-not (fs/existsSync output) (fs/mkdirSync output))

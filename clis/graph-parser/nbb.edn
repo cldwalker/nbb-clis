@@ -1,0 +1,6 @@
+{:deps
+ {logseq/graph-parser
+  {:git/url "https://github.com/logseq/logseq"
+   :git/sha "962998a7b2db0b39783547dc0c96bf3c72ad929e"
+   :deps/root "deps/graph-parser"}
+  #_{:local/root "../../../../work/logseq/deps/graph-parser"}}}
