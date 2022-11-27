@@ -3,6 +3,7 @@
             ["path" :as path]
             ["util" :as util]
             [nbb.core]
+            [clojure.string :as string]
             [cldwalker.nbb-clis.mldoc :as mldoc]))
 
 (defn- handle-heading-node
@@ -60,7 +61,10 @@
     (if (empty? keep)
       (fs/rmSync input)
       (fs/writeFileSync input
-                        (mldoc/ast-export-markdown keep config mldoc/default-references)))
+                        (string/replace
+                         (mldoc/ast-export-markdown keep config mldoc/default-references)
+                         #"\s+(\n|$)"
+                         "$1")))
     (when (seq remove)
       (fs/writeFileSync output
                         (mldoc/ast-export-markdown remove config mldoc/default-references)))))

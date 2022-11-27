@@ -16,6 +16,7 @@
 (defn default-config
   []
   (->> {:toc false
+        :parse_outline_only false
         :heading_number false
         :keep_line_break true
         :format :Markdown

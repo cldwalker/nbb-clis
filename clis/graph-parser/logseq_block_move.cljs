@@ -1,9 +1,12 @@
 (ns logseq-block-move
-  "WIP - Like logseq-block-move but loses properties so don't use yet"
+  "Equivalent to clis/mldoc/logseq-block-move but depend on logseq's graph-parser. To try this:
+
+yarn nbb-logseq logseq_block_move.cljs /path/to/md-file /path/to/new-md-file some-tag"
   (:require ["fs" :as fs]
             ["path" :as path]
             ["util" :as util]
             [nbb.core]
+            [clojure.string :as string]
             [logseq.graph-parser.mldoc :as gp-mldoc]))
 
 (defn- handle-heading-node
@@ -54,6 +57,12 @@
   (let [body (fs/readFileSync input-file)]
     (gp-mldoc/->edn (str body) config)))
 
+(defn- strip-trailing-whitespace
+  "Needed b/c export has trailing whitespace bug which started somewhere b/n
+  mldoc 1.3.3 and 1.5.1"
+  [s]
+  (string/replace s #"\s+(\n|$)" "$1"))
+
 (defn move-input-to-output [input output config f]
   (let [md-ast (file-ast input config)
         {:keys [keep remove]} (remove-by-fn f md-ast)]
@@ -62,13 +71,11 @@
                             input output))
       (println (util/format "%s -> %s - %s of %s nodes moved"
                             input output (count remove) (+ (count keep) (count remove)))))
-    ; (prn (gp-mldoc/ast-export-markdown keep config gp-mldoc/default-references))
-    ; (prn :KEEP keep)
     (if (empty? keep)
       (fs/rmSync input)
       (fs/writeFileSync input
-                        (gp-mldoc/ast-export-markdown (-> keep clj->js js/JSON.stringify) config gp-mldoc/default-references)))
-    (prn :RM remove)
+                        (strip-trailing-whitespace
+                         (gp-mldoc/ast-export-markdown (-> keep clj->js js/JSON.stringify) config gp-mldoc/default-references))))
     (when (seq remove)
       (fs/writeFileSync output
                         (gp-mldoc/ast-export-markdown (-> remove clj->js js/JSON.stringify) config gp-mldoc/default-references)))))
@@ -76,7 +83,7 @@
 (defn -main*
   [args]
   (let [[input output tag] args
-        config (gp-mldoc/default-config :markdown)
+        config (gp-mldoc/default-config :markdown {:export-keep-properties? true})
         remove-f #(contains? (set (:title %)) ["Tag" [["Plain" tag]]])]
     (if (.isDirectory (fs/lstatSync input))
       (do

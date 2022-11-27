@@ -1,6 +1,5 @@
 (ns logseq-ast
-  "Equivalent to clis/mldoc/logseq-ast but depend on upstream
-logseq ns. To try this:
+  "Equivalent to clis/mldoc/logseq-ast but depend on logseq's graph-parser. To try this:
 
 yarn nbb-logseq logseq_ast.cljs /path/to/markdown-file"
   (:require ["fs" :as fs]
