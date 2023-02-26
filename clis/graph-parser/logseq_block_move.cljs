@@ -78,7 +78,8 @@ yarn nbb-logseq logseq_block_move.cljs /path/to/md-file /path/to/new-md-file som
                          (gp-mldoc/ast-export-markdown (-> keep clj->js js/JSON.stringify) config gp-mldoc/default-references))))
     (when (seq remove)
       (fs/writeFileSync output
-                        (gp-mldoc/ast-export-markdown (-> remove clj->js js/JSON.stringify) config gp-mldoc/default-references)))))
+                        (strip-trailing-whitespace
+                         (gp-mldoc/ast-export-markdown (-> remove clj->js js/JSON.stringify) config gp-mldoc/default-references))))))
 
 (defn -main*
   [args]
