@@ -1,7 +1,0 @@
-{
-  "license": "MIT",
-  "dependencies": {
-    "@logseq/nbb-logseq": "^1.1.157",
-    "mldoc": "1.5.1"
-  }
-}
