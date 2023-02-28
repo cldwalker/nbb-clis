@@ -7,70 +7,15 @@ An assortment of handy [nbb](https://github.com/babashka/nbb) CLIs.
 * nodejs >= 16.3.1 and npm
 * nbb >= 0.1.0 globally installed - `npm install nbb -g`
 
-## Setup
-
-To use these scripts/commands/executables, put `bin/` on `$PATH`:
-
-```sh
-$ git clone https://github.com/cldwalker/nbb-clis
-$ export PATH=$PATH:$HOME/path/to/nbb-clis/bin
-```
-
-**Note**: No npm install step is needed as scripts automatically download their deps on their first invocation in the same way as clojure and bb scripts.
-
 ## Usage
 
-The following scripts are under bin/:
+For more up to date logseq clis see https://github.com/cldwalker/logseq-clis
 
-### logseq-ast
-
-Prints the logseq ast of a given markdown file:
-
-```sh
-$ logseq-ast example.md
-[[["Heading"
-   {:anchor "apple",
-    :level 1,
-    :meta {:properties [], :timestamps []},
-    :size nil,
-    :tags [],
-    :title [["Plain" "apple "] ["Tag" [["Plain" "some-tag"]]]],
-    :unordered true}]
-  {:end_pos 18, :start_pos 0}]
- [["Heading"
-   {:anchor "banana",
-    :level 2,
-    :meta {:properties [], :timestamps []},
-    :size nil,
-    :tags [],
-    :title [["Plain" "banana "]
-            ["Tag" [["Plain" "work"]]]
-            ["Plain" " "]
-            ["Tag" [["Plain" "blarg"]]]],
-    :unordered true}]
-  {:end_pos 41, :start_pos 18}]
-...
-```
-
-### logseq-block-move
-
-Moves blocks with specified tag to another file or directory. Useful for finely splitting a logseq knowledge graph directory.
-
-```sh
-$ logseq-block-move pages new-pages unused-tag
-pages/example.md -> new-pages/example.md - 6 of 8 nodes moved
-```
-
-**Note**: There are minor whitespace changes and [this bug](https://github.com/logseq/mldoc/issues/116) that occur during the move. It's recommended to use `logseq-roundtrip` on the intended move target beforehand to see what the mldoc exporter will do.
-
-### logseq-roundtrip
-
-Parses and then exports a markdown file. Useful for testing mldoc's export.
+For mldoc scripts, see [clis/mldoc](clis/mldoc).
 
 ## Development
 
 Code is organized under the following directories:
-* `bin/` -  Scripts to be put on `$PATH`
 * `src/` - Reusable cljs code used across scripts. Can be used as a gitlib.
 * `clis/` - Contains a set of directories, each directory containing a
   package.json. A directory may contain multiple scripts as they share the same
